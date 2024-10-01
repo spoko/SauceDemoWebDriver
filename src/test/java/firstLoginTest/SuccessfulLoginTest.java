@@ -1,26 +1,24 @@
 package firstLoginTest;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import baseTestCase.TestUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class SuccessfulLoginTest {
-    public WebDriver driver;
+import java.time.Duration;
 
-    @Test
-    public void successfulLogin(){
-        driver.get("https://www.saucedemo.com/");
+public class SuccessfulLoginTest extends TestUtil {
 
+    @Test(dataProvider = "userList")
+    public void successfulLogin(String username){
         WebElement usernameInput = driver.findElement(By.id("user-name"));
         usernameInput.click();
         usernameInput.clear();
-        usernameInput.sendKeys("standard_user");
+        usernameInput.sendKeys(username);
 
         WebElement passwordInput = driver.findElement(By.cssSelector("#password"));
         passwordInput.click();
@@ -30,18 +28,21 @@ public class SuccessfulLoginTest {
         WebElement loginBtn = driver.findElement(By.name("login-button"));
         loginBtn.click();
 
+        //Explicit Wait:
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
         WebElement productsPageTitle = driver.findElement(By.className("title"));
+        wait.until(ExpectedConditions.visibilityOf(productsPageTitle));//usage of the explicit wait
         Assert.assertTrue(productsPageTitle.isDisplayed());
     }
 
-    @BeforeMethod
-    public void setupChromeDriver(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
-
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
+    @DataProvider(name = "userList")
+    public Object[] getUsers(){
+        return new Object[] {
+                "standard_user",
+                "locked_out_user",
+                "problem_user",
+                "performance_glitch_user"
+        };
     }
 }
