@@ -33,7 +33,7 @@ public class SuccessfulLoginTest extends TestUtil {
 
         WebElement productsPageTitle = driver.findElement(By.className("title"));
         wait.until(ExpectedConditions.visibilityOf(productsPageTitle));//usage of the explicit wait
-        Assert.assertTrue(productsPageTitle.isDisplayed());
+        Assert.assertTrue(productsPageTitle.isDisplayed(), "Login was not successful");
     }
 
     @DataProvider(name = "userList")

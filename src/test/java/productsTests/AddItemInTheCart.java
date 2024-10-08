@@ -31,7 +31,7 @@ public class AddItemInTheCart extends TestUtil {
         WebElement shoppingCartBadge = driver.findElement(By.cssSelector(".shopping_cart_badge"));
         //WebElement shoppingCartBadge = driver.findElement(By.className("shopping_cart_badge")); - the same as above
 
-        Assert.assertEquals(shoppingCartBadge.getText(), "1");
+        Assert.assertEquals(shoppingCartBadge.getText(), "1", "Since we`ve added one element");
     }
 
     @DataProvider(name = "shoppingItems")
