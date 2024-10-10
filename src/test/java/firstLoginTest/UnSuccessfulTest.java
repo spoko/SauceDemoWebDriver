@@ -2,16 +2,10 @@ package firstLoginTest;
 
 import baseTestCase.TestUtil;
 import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvRecurse;
 import com.opencsv.exceptions.CsvException;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -23,7 +17,7 @@ public class UnSuccessfulTest extends TestUtil {
     //public WebDriver driver;
 
     @Test(dataProvider = "wrongUsers")
-    public void unSuccessfulLogin(String username, String password){
+        public void unSuccessfulLogin(String username, String password){
         //driver.get("https://www.saucedemo.com/");
 
         WebElement usernameInput = driver.findElement(By.id("user-name"));
